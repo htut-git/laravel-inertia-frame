@@ -36,6 +36,9 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+            'user.roles' => $request->user() ? $request->user()->roles->pluck('name') : [],
+            'user.permissions' => $request->user() ? $request->user()->getPermissionsViaRoles()->pluck('name') : [],
+            'locale' => app()->getLocale()
         ];
     }
 }
