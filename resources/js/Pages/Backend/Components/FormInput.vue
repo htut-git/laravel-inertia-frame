@@ -4,7 +4,7 @@
         <label :for="id" class="form-label">{{ label ?? name }}</label>
         <input :type="type" :name="name" class="form-control" :class="[error ? 'is-invalid' : '']" :id="id"
             :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"
-            :placeholder="placeholder ?? `Enter your ${label ?? name}`">
+            :placeholder="placeholder ?? `Enter  ${label ?? name}`">
         <div class="invalid-feedback" v-if="error">
             {{ error }}
         </div>

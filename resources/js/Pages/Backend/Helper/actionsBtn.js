@@ -6,4 +6,11 @@ export default class ActionBtn {
             class: '.editBtn'
         };
     }
+
+    static deleteBtn(dataId) {
+        return {
+            html: `<button data-id="${dataId}"  class="btn btn-danger btn btn-sm deleteBtn"><i class="fa-solid fa-trash"></i></button>`,
+            class: '.deleteBtn'
+        };
+    }
 }

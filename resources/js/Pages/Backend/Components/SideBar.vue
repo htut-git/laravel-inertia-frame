@@ -9,7 +9,6 @@
                 <li class="sidebar-header">
                     Pages
                 </li>
-
                 <li :class="['sidebar-item', { 'active': $page.url.startsWith('/admin/dashboard') }]">
                     <Link class="sidebar-link" :href="route('admin.dashboard')">
                     <i class="fa-solid fa-chart-line"></i><span class="align-middle">Dashboard</span>
@@ -26,6 +25,11 @@
                     <Link class="sidebar-link" :href="route('admin.roles.index')">
                     <i class="fa-solid fa-user-check"></i> <span class="align-middle">Roles</span>
                     </Link>
+                </li>
+                <li :class="['sidebar-item', { 'active': $page.url.startsWith('/admin/log-viewer') }]">
+                    <a class="sidebar-link" href="/admin/log-viewer">
+                        <i class="fa-solid fa-server"></i> <span class="align-middle">Logs</span>
+                    </a>
                 </li>
             </ul>
         </div>

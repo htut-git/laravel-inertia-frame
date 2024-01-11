@@ -61,7 +61,7 @@ class UserController extends Controller
             if ($role['status']) array_push($roles, $role['name']);
         }
         $user->syncRoles($roles);
-        return Inertia::render('Backend/User/UserIndex');
+        return to_route('admin.users.index');
     }
 
 

@@ -6,5 +6,7 @@
     "actions":"Actions",
     "edit":"Edit",
     "submit":"Submit",
-    "total users":"Total Users"
+    "total users":"Total Users",
+    "permissions":"Permissions",
+    "new":"New"
 }

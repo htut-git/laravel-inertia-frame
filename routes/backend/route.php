@@ -5,7 +5,7 @@ use App\Http\Controllers\Backend\RolesController;
 use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
+Route::prefix('admin')->middleware(['auth','role:Super Admin|admin'])->name('admin.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('users-table',[UserController::class,'getDataTable'])->name('users-table');
