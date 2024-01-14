@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -87,13 +88,13 @@ class RolesController extends Controller
     public function getDataTable(Request $request)
     {
         if (userCan('view roles')) {
-            $modal = Role::query()->select('roles.*')->withCount('users')->with('permissions:id,name');
+            $modal = Role::query()->select('roles.*');
             return DataTables::eloquent($modal)
                 ->editColumn('name', function ($role) {
                     return ucfirst($role->name);
                 })
                 ->addColumn('users_count_html', function ($role) {
-                    return "<h5><span class='badge bg-primary'>{$role->users_count}</span></h5>";
+                    return "<h5><span class='bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300'>{$role->users()->count()}</span></h5>";
                 })
                 ->rawColumns(['users_count_html'])
                 ->toJson();

@@ -1,10 +1,9 @@
 <template>
-    <div class="container">
-
+    <BackendLayout >
         <Head title="User Table"></Head>
-        <DataTable :columns="columns" class="table table-hover table-striped" :options="dataTableOptions"
+        <DataTable :columns="columns" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" :options="dataTableOptions"
             :ajax="route('admin.users-table')">
-            <thead>
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th>{{ $t('id') }}</th>
                     <th>{{ $t('name') }}</th>
@@ -14,25 +13,21 @@
                 </tr>
             </thead>
         </DataTable>
-    </div>
+    </BackendLayout>
 </template>
-
-<script>
-export default {
-    layout: BackendLayout
-}
-</script>
 
 <script setup >
 import $ from 'jquery';
-import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
+import 'datatables.net-buttons/js/buttons.html5';
 import { Head, router } from '@inertiajs/vue3'
 import BackendLayout from '@/Layouts/BackendLayout.vue';
 import DataTable from 'datatables.net-vue3';
-import DataTablesCore from 'datatables.net-bs5';
+import DataTablesCore from 'datatables.net-responsive-dt';
 import ActionsBtn from '@/Pages/Backend/Helper/actionsBtn';
+import jszip from 'jszip';
 import { onUnmounted } from 'vue';
 DataTable.use(DataTablesCore);
+DataTablesCore.Buttons.jszip(jszip);
 const columns = [
     { data: 'id' },
     { data: 'name' },
@@ -47,10 +42,12 @@ const columns = [
 
 ]
 const dataTableOptions = {
+    dom: 'Bflrtip',
     processing: true,
     serverSide: true,
     order: [[0, 'asc']],
     searching: true,
+    buttons: ['copy', 'csv', 'excel'],
     columnDefs: [
         { orderable: false, targets: -1 }
     ],
@@ -66,5 +63,6 @@ onUnmounted(()=>{
 })
 </script>
 
-<style lang="scss"  scoped></style>
-@/Pages/Backend/Helper/actionsBtn
+<style lang="scss"  scoped>
+@import url("https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/r-2.5.0/datatables.min.css");
+</style>

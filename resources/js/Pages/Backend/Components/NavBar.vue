@@ -1,181 +1,74 @@
 <template>
-    <nav class="navbar navbar-expand navbar-light navbar-bg">
-        <a class="sidebar-toggle js-sidebar-toggle">
-            <i class="hamburger align-self-center"></i>
-        </a>
-
-        <div class="navbar-collapse collapse">
-            <ul class="navbar-nav navbar-align">
-                <li class="nav-item dropdown">
-                    <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
-                        <div class="position-relative">
-                            <i class="align-middle" data-feather="bell"></i>
-                            <span class="indicator">4</span>
-                        </div>
+    <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center justify-start rtl:justify-end">
+                    <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
+                        type="button"
+                        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                        <span class="sr-only">Open sidebar</span>
+                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+                            </path>
+                        </svg>
+                    </button>
+                    <a href="https://flowbite.com" class="flex ms-2 md:me-24">
+                        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
+                        <span
+                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
-                        <div class="dropdown-menu-header">
-                            4 New Notifications
+                </div>
+                <div class="flex items-center">
+                    <div class="flex items-center ms-3">
+                        <div>
+                            <button type="button"
+                                class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                                aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                <span class="sr-only">Open user menu</span>
+                                <img class="w-8 h-8 rounded-full"
+                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                            </button>
                         </div>
-                        <div class="list-group">
-                            <a href="#" class="list-group-item">
-                                <div class="row g-0 align-items-center">
-                                    <div class="col-2">
-                                        <i class="text-danger" data-feather="alert-circle"></i>
-                                    </div>
-                                    <div class="col-10">
-                                        <div class="text-dark">Update completed</div>
-                                        <div class="text-muted small mt-1">Restart server 12 to complete the
-                                            update.</div>
-                                        <div class="text-muted small mt-1">30m ago</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <div class="row g-0 align-items-center">
-                                    <div class="col-2">
-                                        <i class="text-warning" data-feather="bell"></i>
-                                    </div>
-                                    <div class="col-10">
-                                        <div class="text-dark">Lorem ipsum</div>
-                                        <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate
-                                            hendrerit et.</div>
-                                        <div class="text-muted small mt-1">2h ago</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <div class="row g-0 align-items-center">
-                                    <div class="col-2">
-                                        <i class="text-primary" data-feather="home"></i>
-                                    </div>
-                                    <div class="col-10">
-                                        <div class="text-dark">Login from 192.186.1.8</div>
-                                        <div class="text-muted small mt-1">5h ago</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <div class="row g-0 align-items-center">
-                                    <div class="col-2">
-                                        <i class="text-success" data-feather="user-plus"></i>
-                                    </div>
-                                    <div class="col-10">
-                                        <div class="text-dark">New connection</div>
-                                        <div class="text-muted small mt-1">Christina accepted your request.
-                                        </div>
-                                        <div class="text-muted small mt-1">14h ago</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="dropdown-menu-footer">
-                            <a href="#" class="text-muted">Show all notifications</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
-                        <div class="position-relative">
-                            <i class="align-middle" data-feather="message-square"></i>
-                        </div>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
-                        <div class="dropdown-menu-header">
-                            <div class="position-relative">
-                                4 New Messages
+                        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+                            id="dropdown-user">
+                            <div class="px-4 py-3" role="none">
+                                <p class="text-sm text-gray-900 dark:text-white" role="none">
+                                    Neil Sims
+                                </p>
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                                    neil.sims@flowbite.com
+                                </p>
                             </div>
-                        </div>
-                        <div class="list-group">
-                            <a href="#" class="list-group-item">
-                                <div class="row g-0 align-items-center">
-                                    <div class="col-2">
-                                        <img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
-                                            alt="Vanessa Tucker">
-                                    </div>
-                                    <div class="col-10 ps-2">
-                                        <div class="text-dark">Vanessa Tucker</div>
-                                        <div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu
-                                            tortor.</div>
-                                        <div class="text-muted small mt-1">15m ago</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <div class="row g-0 align-items-center">
-                                    <div class="col-2">
-                                        <img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
-                                            alt="William Harris">
-                                    </div>
-                                    <div class="col-10 ps-2">
-                                        <div class="text-dark">William Harris</div>
-                                        <div class="text-muted small mt-1">Curabitur ligula sapien euismod
-                                            vitae.</div>
-                                        <div class="text-muted small mt-1">2h ago</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <div class="row g-0 align-items-center">
-                                    <div class="col-2">
-                                        <img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
-                                            alt="Christina Mason">
-                                    </div>
-                                    <div class="col-10 ps-2">
-                                        <div class="text-dark">Christina Mason</div>
-                                        <div class="text-muted small mt-1">Pellentesque auctor neque nec urna.
-                                        </div>
-                                        <div class="text-muted small mt-1">4h ago</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <div class="row g-0 align-items-center">
-                                    <div class="col-2">
-                                        <img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
-                                            alt="Sharon Lessman">
-                                    </div>
-                                    <div class="col-10 ps-2">
-                                        <div class="text-dark">Sharon Lessman</div>
-                                        <div class="text-muted small mt-1">Aenean tellus metus, bibendum sed,
-                                            posuere ac, mattis non.</div>
-                                        <div class="text-muted small mt-1">5h ago</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="dropdown-menu-footer">
-                            <a href="#" class="text-muted">Show all messages</a>
-                        </div>
+                            <ul class="py-1" role="none">
+                                <li>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        role="menuitem">Dashboard</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        role="menuitem">Settings</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        role="menuitem">Earnings</a>
+                                </li>
+                                <li>
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    role="menuitem">Sign out</a>
+                            </li>
+                        </ul>
                     </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
-                        <i class="align-middle" data-feather="settings"></i>
-                    </a>
-
-                    <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                        <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span
-                            class="text-dark">Charles Hall</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
-                                data-feather="user"></i> Profile</a>
-                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
-                            Analytics</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i>
-                            Settings & Privacy</a>
-                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help
-                            Center</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Log out</a>
-                    </div>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
-    </nav>
-</template>
+    </div>
+</nav></template>
 
 <script setup>
 

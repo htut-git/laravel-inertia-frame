@@ -1,30 +1,30 @@
+<template>
+    <div>
+        <NavBar></NavBar>
+        <SideBar></SideBar>
+        <div class="p-4 sm:ml-64 mt-14">
+            <slot name="breadcrumbs"/>
+            <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 ">
+                <slot />
+            </div>
+        </div>
+
+    </div>
+</template>
+
 <script setup>
-import 'bootstrap/dist/css/bootstrap.css';
-import '../../css/backend.css';
+import 'flowbite/dist/flowbite.min.css';
+import { initFlowbite } from 'flowbite'
 import NavBar from '@/Pages/Backend/Components/NavBar.vue';
 import SideBar from '@/Pages/Backend/Components/SideBar.vue';
-import Banner from '@/Components/Banner.vue';
+import { onMounted } from 'vue';
 defineProps({
     title: String,
 })
+onMounted(()=>{
+    initFlowbite();
+})
 </script>
-
-<template>
-    <div>
-        <div class="wrapper">
-            <SideBar></SideBar>
-            <div class="main">
-                <NavBar></NavBar>
-                <main class="content">
-                    <Banner/>
-                    <div class="container-fluid p-0">
-                        <slot />
-                    </div>
-                </main>
-            </div>
-        </div>
-    </div>
-</template>
 
 <style lang="scss" scoped>
 </style>

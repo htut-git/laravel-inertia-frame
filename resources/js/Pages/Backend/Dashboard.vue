@@ -1,12 +1,9 @@
 <template>
-    <div>
+    <BackendLayout>
 
-    </div>
+    </BackendLayout>
 </template>
 <script>
-export default {
-    layout: BackendLayout
-}
 </script>
 <script setup>
 import BackendLayout from '@/Layouts/BackendLayout.vue';

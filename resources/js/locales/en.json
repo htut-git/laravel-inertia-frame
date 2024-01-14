@@ -8,5 +8,11 @@
     "submit":"Submit",
     "total users":"Total Users",
     "permissions":"Permissions",
-    "new":"New"
+    "add new":"Add New {key}",
+    "new password":"New Password",
+    "change password":"Change Password",
+    "dashboard" : "Dashboard",
+    "users":"Users",
+    "logs" : "Logs",
+    "sing out":"Sing Out"
 }

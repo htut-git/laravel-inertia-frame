@@ -1,6 +1,5 @@
 import './bootstrap';
 import '../css/app.css';
-
 import { createApp, h } from 'vue';
 import { createInertiaApp, usePage } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -13,7 +12,6 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 const page = usePage();
 const i18n = createI18n({
     locale:page.locale,
-    legacy:false,
     fallbackLocale: 'en-US',
     messages:{
         'en-US':en_US,
