@@ -20,7 +20,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Backend/User/UserIndex');
+
+        return Inertia::render('Backend/User/UserIndex',['users'=>User::with('roles:id,name')->paginate(10)]);
     }
 
 
@@ -78,7 +79,7 @@ class UserController extends Controller
     function updatePassword(Request $request, string $id)
     {
         $request->validate([
-            'newPassword'=>'required|string|max:255'
+            'newPassword' => 'required|string|max:255'
         ]);
         if (userCan('manage users')) {
             $user = User::find($id);
@@ -88,7 +89,8 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    function destroySession($id)  {
+    function destroySession($id)
+    {
         $userService = new UserService(User::find($id));
         $userService->destroySessions();
         return redirect()->back();
@@ -104,6 +106,14 @@ class UserController extends Controller
     {
         $model = User::query()->select('users.*')->with('roles:id,name');
         return DataTables::eloquent($model)
+            ->editColumn('name', function ($user) {
+                return "
+                <div class=' flex items-center'>
+                <img class='rounded-full d-inline me-2' src='https://ui-avatars.com/api/?size=40&name={$user->name}' alt='image description'>
+                {$user->name}
+                </div>
+                ";
+            })
             ->editColumn('roles', function ($user) {
                 $roles = '';
                 foreach ($user->roles as $role) {
@@ -112,7 +122,7 @@ class UserController extends Controller
                 }
                 return $roles;
             })
-            ->rawColumns(['roles'])
+            ->rawColumns(['roles', 'name'])
             ->toJson();
     }
 }

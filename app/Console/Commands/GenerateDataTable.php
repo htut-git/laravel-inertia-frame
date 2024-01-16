@@ -44,10 +44,9 @@ class GenerateDataTable extends Command
     {
         return <<<VUE
             <template>
-                <div>
-
+                <BackendLayout>
                     <Head title="$filename Table"></Head>
-                    <DataTable :columns="columns" class="table table-hover table-striped" :options="dataTableOptions"
+                    <DataTable :key="tableKey" :columns="columns" class="table table-hover table-striped" :options="dataTableOptions"
                         :ajax="route('admin.')">
                         <thead>
                             <tr>
@@ -56,25 +55,30 @@ class GenerateDataTable extends Command
                             </tr>
                         </thead>
                     </DataTable>
-                </div>
+                </BackendLayout>
             </template>
 
-            <script>
-            export default {
-                layout: BackendLayout
-            }
-            </script>
-
             <script setup>
-            import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
-            import BackendLayout from '@/Layouts/BackendLayout.vue';
-            import { Head } from '@inertiajs/vue3'
-            import DataTable from 'datatables.net-vue3';
-            import DataTablesCore from 'datatables.net-bs5';
-            import ActionsBtn from '../Helper/actionsBtn';
+            import 'sweetalert2/src/sweetalert2.scss';
             import $ from 'jquery';
+            import 'datatables.net-buttons/js/buttons.html5';
+            import BackendLayout from '@/Layouts/BackendLayout.vue';
+            import { Head, Link, router } from '@inertiajs/vue3'
+            import DataTable from 'datatables.net-vue3';
+            import DataTablesCore from 'datatables.net-responsive-dt';
+            import ActionsBtn from '../Helper/actionsBtn';
+            import jszip from 'jszip';
             import { onUnmounted } from 'vue';
+            import { ref } from 'vue';
+            import Swal from 'sweetalert2/dist/sweetalert2.js'
             DataTable.use(DataTablesCore);
+            DataTablesCore.Buttons.jszip(jszip);
+
+            const tableKey = ref(1);
+
+            const reloadTable = () => {
+                tableKey.value += 1;
+            }
 
             const columns = [
                 { data: 'id' },
@@ -106,7 +110,9 @@ class GenerateDataTable extends Command
             })
             </script>
 
-            <style lang="scss" scoped></style>
+            <style lang="scss" scoped>
+            @import url("https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-1.13.8/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/r-2.5.0/datatables.min.css");
+            </style>
     VUE;
     }
 }
