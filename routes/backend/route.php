@@ -5,10 +5,9 @@ use App\Http\Controllers\Backend\RolesController;
 use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->middleware(['role:Super Admin|admin'])->name('admin.')->group(function () {
+Route::prefix('admin')->middleware(['role:Super Admin|admin','auth:web','verified'])->name('admin.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('users-table',[UserController::class,'getDataTable'])->name('users-table');
     Route::resource('users', UserController::class)->names('users');
     Route::post('users/update-password/{id}', [UserController::class,'updatePassword'])->name('users.updatePassword');
     Route::post('users/destroy-sessions/{id}', [UserController::class,'destroySession'])->name('users.destroySession');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\UserModalRequest;
 use App\Models\User;
 use App\Services\Backend\UserService;
 use Illuminate\Http\Request;
@@ -18,10 +19,16 @@ use function App\Helpers\userCan;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(UserModalRequest $userModalRequest)
     {
-
-        return Inertia::render('Backend/User/UserIndex',['users'=>User::with('roles:id,name')->paginate(10)]);
+        $users = User::with('roles:id,name')->when($userModalRequest->search, function ($query) use ($userModalRequest) {
+            return $query->where(function ($query) use ($userModalRequest) {
+                $query->where('name', 'like', '%'. $userModalRequest->search. '%');
+                $query->orWhere('email', 'like', '%'. $userModalRequest->search. '%');
+            });
+        })->paginate(20);
+        $users->appends(request()->all());
+        return Inertia::render('Backend/User/UserIndex', ['users' => $users , 'request' => $userModalRequest]);
     }
 
 
@@ -100,29 +107,5 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function getDataTable(Request $request)
-    {
-        $model = User::query()->select('users.*')->with('roles:id,name');
-        return DataTables::eloquent($model)
-            ->editColumn('name', function ($user) {
-                return "
-                <div class=' flex items-center'>
-                <img class='rounded-full d-inline me-2' src='https://ui-avatars.com/api/?size=40&name={$user->name}' alt='image description'>
-                {$user->name}
-                </div>
-                ";
-            })
-            ->editColumn('roles', function ($user) {
-                $roles = '';
-                foreach ($user->roles as $role) {
-                    $roles .= "<span class='bg-blue-100 capitalize text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5
-                    rounded dark:bg-blue-900 dark:text-blue-300'>{$role->name}</span>";
-                }
-                return $roles;
-            })
-            ->rawColumns(['roles', 'name'])
-            ->toJson();
     }
 }

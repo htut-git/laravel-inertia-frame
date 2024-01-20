@@ -2,23 +2,37 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
-use Yajra\DataTables\Facades\DataTables;
-
+use Illuminate\Http\Request;
 use function App\Helpers\userCan;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
+
+use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\Backend\RoleModalRequest;
 
 class RolesController extends Controller
 {
 
-    public function index()
+    public function index(RoleModalRequest $request)
     {
-        return Inertia::render('Backend/Role/RoleIndex');
+        return Inertia::render(
+            'Backend/Role/RoleIndex',
+            [
+                'roles' => Role::select('roles.*')->get()->each(function ($role) {
+                    try {
+                        $role->count_users = $role->users->count();
+                        $role->show_users = $role->users->take(3);
+                    } catch (\Throwable $th) {
+                        $role->count_users = 0;
+                        $role->show_users = [];
+                    }
+                })
+            ]
+        );
     }
 
     public function create()
@@ -30,26 +44,24 @@ class RolesController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(RoleModalRequest $request)
     {
-        if (userCan('manage roles')) {
             $validData = $request->validate([
                 'name' => 'required',
-                'permissions' => 'required'
+                'permissions' => 'required',
             ]);
             $this->saveRole($validData);
             return to_route('admin.roles.index');
-        }
     }
 
 
-    public function show(string $id)
+    public function show(string $id,RoleModalRequest $request)
     {
         //
     }
 
 
-    public function edit(string $id)
+    public function edit(RoleModalRequest $request,string $id)
     {
         $role = Role::find($id);
         $permissions = Permission::select('id', 'name')->orderBy('id', 'asc')->get()->each(function ($query) use ($role) {
@@ -63,14 +75,14 @@ class RolesController extends Controller
     }
 
 
-    public function update(Request $request, string $id)
+    public function update(RoleModalRequest $request, string $id)
     {
         if (userCan('manage roles')) {
             $validData = $request->validate([
                 'name' => 'required',
                 'permissions' => 'required'
             ]);
-            $this->saveRole($validData,$id);
+            $this->saveRole($validData, $id);
             return to_route('admin.roles.index');
         }
     }
@@ -85,21 +97,6 @@ class RolesController extends Controller
         }
     }
 
-    public function getDataTable(Request $request)
-    {
-        if (userCan('view roles')) {
-            $modal = Role::query()->select('roles.*');
-            return DataTables::eloquent($modal)
-                ->editColumn('name', function ($role) {
-                    return ucfirst($role->name);
-                })
-                ->addColumn('users_count_html', function ($role) {
-                    return "<h5><span class='bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300'>{$role->users()->count()}</span></h5>";
-                })
-                ->rawColumns(['users_count_html'])
-                ->toJson();
-        }
-    }
 
     private function saveRole($validData, $id = null)
     {

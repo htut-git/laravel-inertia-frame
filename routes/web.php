@@ -24,7 +24,8 @@ Route::get('/', function () {
     ]);
 });
 
+include 'backend/route.php';
+
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
-    include 'backend/route.php';
     Route::get('dashboard', [FrontendController::class, 'index'])->name('dashboard');
 });

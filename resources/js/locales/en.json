@@ -14,5 +14,6 @@
     "dashboard" : "Dashboard",
     "users":"Users",
     "logs" : "Logs",
-    "sing out":"Sing Out"
+    "sing out":"Sing Out",
+    "delete": "Delete"
 }
